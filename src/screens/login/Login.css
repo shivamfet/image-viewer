@@ -1,0 +1,11 @@
+.card-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin: 5%;
+}
+
+#login_button {
+    cursor: pointer;
+}
+
