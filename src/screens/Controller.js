@@ -9,6 +9,9 @@ class Controller extends Component {
 
     constructor() {
         super();
+        this.state = {
+            isLoggedIn : sessionStorage.getItem("access-token") === null ? false : true
+        }
         this.baseUrl = "https://graph.instagram.com/";
     }
 
@@ -16,7 +19,7 @@ class Controller extends Component {
         return (
             <Router>
                 <div className="main-container">
-                    <Route exact path='/' render={(props) => <Login {...props} baseUrl={this.baseUrl} />} />
+                    <Route exact path='/' render={(props) => this.state.isLoggedIn ? <Home {...props} baseUrl={this.baseUrl} /> : <Login {...props} baseUrl={this.baseUrl} />} />
                     <Route path='/home/' render={(props) => <Home {...props} baseUrl={this.baseUrl} />} />
                 </div>
             </Router>

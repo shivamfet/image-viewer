@@ -21,7 +21,8 @@ class Login extends Component {
             usernameRequired: "dispNone",
             passwordRequired: "dispNone",
             isLoginSuccessful: "",
-            areCredentialsCorrect : ""
+            areCredentialsCorrect : "",
+            isLoggedIn : false
         }
     }
 

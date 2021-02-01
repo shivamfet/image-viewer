@@ -1,9 +1,11 @@
-import SelectInput from '@material-ui/core/Select/SelectInput';
 import React, { Component } from 'react';
 import Header from '../../common/header/Header';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
+import Card from '@material-ui/core/Card';
+import { CardContent, CardHeader } from '@material-ui/core';
+import logo from '../../assets/upgrad_logo.svg';
+import Avatar from '@material-ui/core/Avatar';
 
 class Home extends Component {
 
@@ -27,12 +29,10 @@ class Home extends Component {
 
 
         let mediaIds = [];
-        let mediaIdInfos = [];
 
-        let mediaIdInfo = null;
 
         xhrImages.addEventListener("readystatechange", function () {
-            if (this.readyState == 4) {
+            if (this.readyState === 4) {
                 response = JSON.parse(this.responseText);
                 data = response.data;
                 for (var i = 0; i < data.length; i++) {
@@ -47,14 +47,15 @@ class Home extends Component {
         xhrImages.open("GET", "https://graph.instagram.com/me/media?fields=id,caption&access_token=" + token);
         xhrImages.send();
 
-        setTimeout(() => {
-            let xhrMediaInfo = [];
+
+        let mediaIdInfo = null;
+        let xhrMediaInfo = [];
+        setTimeout(function () {
+
             for (var i = 0; i < that.state.mediaIds.length; i++) {
-                console.log("hi");
-                console.log(that.state.mediaIds[i]);
                 xhrMediaInfo[i] = new XMLHttpRequest();
                 xhrMediaInfo[i].addEventListener("readystatechange", function () {
-                    if (this.readyState == 4) {
+                    if (this.readyState === 4) {
                         console.log("here");
                         mediaIdInfo = JSON.parse(this.responseText);
                         console.log(mediaIdInfo);
@@ -66,7 +67,8 @@ class Home extends Component {
                 })
                 xhrMediaInfo[i].open("GET", "https://graph.instagram.com/" + that.state.mediaIds[i] + "?fields=id,media_type,media_url,username,timestamp&access_token=" + token);
                 xhrMediaInfo[i].send();
-            }} , 5000);
+            }
+        }, 5000);
 
 
     }
@@ -74,18 +76,30 @@ class Home extends Component {
 
     render() {
         return (<div>
-            <Header showSearchButton="true" showUserIcon="true"/>
-            <GridList cellHeight={"auto"} cols={2}>
-                {this.state.mediaInfos.map(mediaInfo => (
-                    <GridListTile key={"movie" + mediaInfo.id}>
-                        <img src={mediaInfo.media_url} alt={mediaInfo.media_type} />
-                        {/* <GridListTileBar
-                            title={movie.title}
-                            subtitle={<span>Release Date: {new Date(movie.release_date).toDateString()}</span>}
-                        />  */}
-                    </GridListTile>
-                ))}
+            <Header />
+            <GridList cellHeight = {"auto"} cols={2} >
+            {this.state.mediaInfos.map(mediaInfo => (
+                <GridListTile key={mediaInfo.id}>
+                    <Card style={{width : "25"}}>
+                    <CardHeader
+                        avatar={
+                            <Avatar src={logo} alt="Profile pic"/>
+                        }
+                        title={mediaInfo.username}
+                        subheader={mediaInfo.timestamp}/>
+                    
+                    <CardContent>
+                        <img src={mediaInfo.media_url} alt="pic"/>
+                    </CardContent>
+                </Card>
+
+                </GridListTile>
+                
+            ))}
+
+
             </GridList>
+            
         </div>)
     }
 
