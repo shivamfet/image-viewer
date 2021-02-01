@@ -42,6 +42,7 @@ class Login extends Component {
     loginClickHandler = () => {
         let username = "abc";
         let password = "abc";
+        let accessToken = 'IGQVJYRHBwTkFETHdwaWxnc25mMDJLXzNjVlE4Vmx1YURHaW5QVm1uTk9VeGY1OTR1UHYwUkg1Rl84c3pFbk9zLV9DTHRRSDlOaE1wNFo0cDFfejM2N3htWmJaeEpfX2hvVGpVUFlZARWRud2lSWTlqQQZDZD';
         
         this.state.username === "" ? this.setState({ usernameRequired: "dispBlock" }) : this.setState({ usernameRequired: "dispNone" });
         this.state.password === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" });
@@ -49,6 +50,13 @@ class Login extends Component {
         if (this.state.username === username && this.state.password === password) {
             console.log("Login is successful")
             this.setState({ isLoginSuccessful: "true" });
+            sessionStorage.setItem("access-token", accessToken);
+            this.props.history.push({
+                pathname: '/home/' 
+            })
+            
+            
+
         } else {
             this.setState({areCredentialsCorrect : "false"});
         }
