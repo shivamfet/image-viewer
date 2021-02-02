@@ -1,0 +1,4 @@
+.addComment {
+    display: flex;
+    flex-direction: row;
+}

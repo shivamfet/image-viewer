@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Home.css';
 import Header from '../../common/header/Header';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -6,6 +7,9 @@ import Card from '@material-ui/core/Card';
 import { CardContent, CardHeader } from '@material-ui/core';
 import logo from '../../assets/upgrad_logo.svg';
 import Avatar from '@material-ui/core/Avatar';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
 
 class Home extends Component {
 
@@ -80,7 +84,7 @@ class Home extends Component {
             <GridList cellHeight = {"auto"} cols={2} >
             {this.state.mediaInfos.map(mediaInfo => (
                 <GridListTile key={mediaInfo.id}>
-                    <Card style={{width : "25"}}>
+                    <Card style={{width : "100%" , height : "100%" , margin : "auto"}}>
                     <CardHeader
                         avatar={
                             <Avatar src={logo} alt="Profile pic"/>
@@ -90,9 +94,19 @@ class Home extends Component {
                     
                     <CardContent>
                         <img src={mediaInfo.media_url} alt="pic"/>
+                        <hr></hr>
+                        <span style = {{color : "blue"}}>#pgdsd #upgrad</span>
+                        <br/><br/>
+                        <FavoriteBorderIcon></FavoriteBorderIcon><br/>
+                   
+                        <Input placeholder="Add Comment"/>
+                        
+                        <Button  style = {{marginLeft : "10px"}} variant="contained" color="primary">Add</Button>
+                   
+                        
+
                     </CardContent>
                 </Card>
-
                 </GridListTile>
                 
             ))}
